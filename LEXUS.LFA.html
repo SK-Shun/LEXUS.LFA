@@ -25,7 +25,6 @@
       text-align: center;
     }
 
-    /* オーバーレイ（暗くする） */
     .page-header::before {
       content: "";
       position: absolute;
@@ -35,7 +34,6 @@
       z-index: 0;
     }
 
-    /* 見出しテキスト */
     .page-header h1 {
       margin: 0;
       font-size: 3rem;
@@ -55,7 +53,18 @@
       gap: 30px;
     }
 
-    /* 左：画像エリア */
+    /* 左：画像エリア（初期非表示） */
+    .image-area {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .image-area.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .image-area img {
       width: 100%;
       max-width: 500px;
@@ -63,7 +72,7 @@
       box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
     }
 
-    /* 右：タイピングテキスト */
+    /* 右：タイピングテキスト（初期非表示） */
     .text-area {
       flex: 1;
       min-width: 300px;
@@ -100,26 +109,27 @@
 </head>
 <body>
 
-  <!-- 画像背景の見出し -->
+  <!-- 背景画像の見出し -->
   <header class="page-header">
     <h1>LEXUS LFA</h1>
   </header>
 
-  <!-- メイン：画像＋タイピング本文 -->
+  <!-- 画像＋本文の2カラム -->
   <main class="main-content">
     <!-- 左：画像 -->
-    <div class="image-area">
+    <div class="image-area" id="image-area">
       <img src="https://img1.kakaku.k-img.com/images/productimage/fullscale/K0000287069.jpg" alt="LFA">
     </div>
 
-    <!-- 右：タイピングテキスト -->
+    <!-- 右：本文（タイピング） -->
     <div class="text-area">
       <div class="typing-box" id="type-text"></div>
     </div>
   </main>
 
-  <!-- タイピングスクリプト -->
+  <!-- タイピング＋順番制御スクリプト -->
   <script>
+    const imageArea = document.getElementById('image-area');
     const typeBox = document.getElementById('type-text');
 
     const text = 'LFAとは、Lexus F Sport Apexの頭文字を取った車名で、その名の通りレクサスのプレミアムスポーツシリーズ「F」の頂点に立つスーパースポーツカーです。「世界超一級レベルの運動性能と超一流の感性と官能を持ち合わせるスーパースポーツカー」として開発されました。世界でわずか500台の限定車で日本での販売台数は165台のみ。LFAは、4.8リットルV10エンジンを搭載しており、そのエンジン音は非常に特徴的で、高音域での美しい響きから「天使の咆哮」と称されています。また、エンジン音はヤマハの音響技術者によって調整され、音楽的な響きを持つように設計されています。';
@@ -135,8 +145,16 @@
     }
 
     window.onload = () => {
-      typeBox.classList.add('visible');
-      typeText();
+      // Step 1: 画像を表示（1秒後）
+      setTimeout(() => {
+        imageArea.classList.add('visible');
+      }, 1000);
+
+      // Step 2: 本文を表示してタイピング開始（2秒後）
+      setTimeout(() => {
+        typeBox.classList.add('visible');
+        typeText();
+      }, 2000);
     };
   </script>
 
