@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>LEXUS LFA</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Consolas, Monaco, monospace;
+      background: #111;
+      color: white;
+    }
+
+    /* 見出し画像エリア */
+    .page-header {
+      background-image: url("https://i.pinimg.com/originals/04/56/48/045648cd3268f94f515cbbef178b2875.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+    }
+
+    /* オーバーレイ（暗くする） */
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    /* 見出しテキスト */
+    .page-header h1 {
+      margin: 0;
+      font-size: 3rem;
+      color: #fff;
+      z-index: 1;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+
+    /* メイン2カラム構成 */
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      gap: 30px;
+    }
+
+    /* 左：画像エリア */
+    .image-area img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* 右：タイピングテキスト */
+    .text-area {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+    }
+
+    .typing-box {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .typing-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .text-area {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 画像背景の見出し -->
+  <header class="page-header">
+    <h1>LEXUS LFA</h1>
+  </header>
+
+  <!-- メイン：画像＋タイピング本文 -->
+  <main class="main-content">
+    <!-- 左：画像 -->
+    <div class="image-area">
+      <img src="https://img1.kakaku.k-img.com/images/productimage/fullscale/K0000287069.jpg" alt="LFA">
+    </div>
+
+    <!-- 右：タイピングテキスト -->
+    <div class="text-area">
+      <div class="typing-box" id="type-text"></div>
+    </div>
+  </main>
+
+  <!-- タイピングスクリプト -->
+  <script>
+    const typeBox = document.getElementById('type-text');
+
+    const text = 'LFAとは、Lexus F Sport Apexの頭文字を取った車名で、その名の通りレクサスのプレミアムスポーツシリーズ「F」の頂点に立つスーパースポーツカーです。「世界超一級レベルの運動性能と超一流の感性と官能を持ち合わせるスーパースポーツカー」として開発されました。世界でわずか500台の限定車で日本での販売台数は165台のみ。LFAは、4.8リットルV10エンジンを搭載しており、そのエンジン音は非常に特徴的で、高音域での美しい響きから「天使の咆哮」と称されています。また、エンジン音はヤマハの音響技術者によって調整され、音楽的な響きを持つように設計されています。';
+
+    let i = 0;
+
+    function typeText() {
+      if (i < text.length) {
+        typeBox.textContent += text[i];
+        i++;
+        setTimeout(typeText, 40);
+      }
+    }
+
+    window.onload = () => {
+      typeBox.classList.add('visible');
+      typeText();
+    };
+  </script>
+
+</body>
+</html>
